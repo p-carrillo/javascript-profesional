@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>
+      Function.prototype.call, Function.prototype.apply, Function.prototype.bind
+    </title>
+  </head>
+
+  <body>
+    <a href="/ejercicios/">Go back</a>
+    <p><em>Abre la consola</em></p>
+
+    <ul>
+      <li><button class="call-to-action">Aprender</button></li>
+      <li><button class="call-to-action">Aprender Más</button></li>
+      <li><button class="call-to-action">¡Nunca parar de Aprender!</button></li>
+    </ul>
+
+    <script>
+      // Establece `this` usando `call`
+
+      function hello() {
+        console.log(`hola, soy ${this.name} ${this.surname}`);
+      }
+
+      const pablo = {
+        name: "Pablo",
+        surname: "Carrillo" 
+      }
+
+      hello.call(pablo)
+
+    
+      // Establece `this` usando `call` y pasar argumentos a la función
+
+      function walk(meters, direcction) {
+        console.log(`${this.name} camina ${meters} metros hacia el ${direcction}.`)
+      }
+
+      walk.call(pablo, 400, "norte")
+
+      // Establece `this` usando `apply` y pasar argumentos a la función
+      
+      const valores = [800, "noroeste"]
+      walk.apply(pablo, valores)
+
+      // Establecer `this` en una nueva función usando `bind`
+
+      const daniel = {
+        name: "Daniel",
+        surname: "Garcia"
+      }
+
+      const danielSayHello = hello.bind(daniel);
+      danielSayHello();
+
+      const danielWalks = walk.bind(daniel, 1000, "este")
+      danielWalks();
+
+      // Cuándo es útil usar uno de estos métodos
+
+      const buttons = document.getElementsByClassName('call-to-action');
+      
+      /** 
+       * Buttons al ser recogida del DOM devuelve un NodeList, un objeto que no tiene el  
+       * método foreach, por tanto el codigo abajo comentado no va a funcionar.
+       */ 
+
+       // buttons.forEach(button => {
+      //   button.onClick = () => alert('Núnca pares de aprender')
+      // });
+      
+      // NodeList
+      Array.prototype.forEach.call(buttons, button => {
+        button.onclick = () => alert('Núnca pares de aprender');
+      });
+
+    </script>
+  </body>
+</html>
+
+
