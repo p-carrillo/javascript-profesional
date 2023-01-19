@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <title>Prototype</title>
+  </head>
+
+  <body>
+    <a href="/ejercicios/">Go back</a>
+    <p><em>Abre la consola</em></p>
+
+    <script>
+      // Un objeto común y corriente
+     
+      const zelda = {
+        name: "Zelda"
+      }
+
+      zelda.saludar = function () {
+        console.log (`hola soy ${this.name}`)
+      }
+
+      zelda.saludar();
+
+      const link = {
+        name: "Link"
+      }
+
+      link.saludar = function () {
+        console.log (`hola soy ${this.name}`)
+      }
+
+      link.saludar();
+
+
+      // Seamos un poco más eficientes
+
+      function Hero (name) {
+        const hero = {
+          name: name
+        }
+        hero.saludar = function() {
+          console.log(`hola soy ${this.name}`)
+        }          
+        return hero
+      }
+
+      const mario = Hero("Mario")
+      mario.saludar();
+
+
+      const luigi = Hero("Luigi")
+      luigi.saludar();
+
+     
+      // Aun podemos mejorar más y evitar tener que crear la misma función cada vez
+      const villainsMethods =  {
+        saludar: function() {
+          console.log(`hola soy ${this.name}`)
+        }, 
+      }
+
+      function Villain(name) {
+        const villain = {
+          name: name
+        };
+        villain.saludar = villainsMethods.saludar
+        return villain
+      }
+
+      const ganon = Villain("Ganon")
+      ganon.saludar();
+
+
+      const bowser = Villain("Bowser")
+      bowser.saludar();
+
+      // Object Create
+
+      function AlteredVillain (name) {
+        const alteredVillain = Object.create(villainsMethods);
+        alteredVillain.name = name;
+        return alteredVillain;
+      }
+
+      const altGanon = AlteredVillain("Alternative Ganon")
+      altGanon.saludar();
+
+
+      const altBowser = AlteredVillain("Alrternative Bowser")
+      altBowser.saludar();
+
+      // Los métodos de hero dentro de Hero
+      
+      const heroMethods =  {
+        saludar: function() {
+          console.log(`hola soy ${this.name}`)
+        }, 
+      }
+
+      function AlteredHero(name) {
+        const alteredHero = Object.create(AlteredHero.prototype);
+        alteredHero.name = name;
+        return alteredHero;
+      }
+
+      AlteredHero.prototype.saludar = function() {
+        console.log(`hola soy ${this.name}`)
+      }
+
+      const altZelda = AlteredHero("Alternative Zelda")
+      altZelda.saludar();
+
+
+      const altLink = AlteredHero("Alrternative Link")
+      altLink.saludar();
+
+     
+      // new es un atajo (azucar sintactica) para llevar Hero.prototype al objeto que estamos creando
+
+      // new nos permite omitir object create y genrar una sintaxis mas amigable
+
+      function NewHero (name) {
+        this.name = name
+      }
+
+      NewHero.prototype.saludar = function() {
+        console.log(`hola soy ${this.name}`)
+      }
+
+      const newZelda = new NewHero("New Zelda")
+      newZelda.saludar();
+
+
+      const newLink = new NewHero("New Link")
+      newLink.saludar();
+
+     </script>
+  </body>
+</html>
