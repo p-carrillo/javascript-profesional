@@ -3,7 +3,7 @@
 
   const video = document.querySelector('video');
   const player = new MediaPlayer({ el: video , plugins: [
-    // new Autoplay(),
+     new Autoplay(),
   ]});
 
   const playButton = document.getElementById('play_toogle');
