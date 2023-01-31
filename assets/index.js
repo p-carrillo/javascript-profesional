@@ -1,6 +1,6 @@
-  import MediaPlayer from './mediaplayer.js'
-  import AutoPlay from './plugins/autoPlay.js'
-  import AutoPause from './plugins/autoPause.js'
+  import MediaPlayer from './MediaPlayer.js'
+  import AutoPlay from './plugins/AutoPlay.js'
+  import AutoPause from './plugins/AutoPause.js'
 
   const video = document.querySelector('video');
   const player = new MediaPlayer({ el: video , plugins: [
@@ -13,3 +13,9 @@
 
   playButton.onclick = () => player.togglePlay();
   muteButton.onclick = () => player.toggleSound();
+
+  if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(error => {
+         console.log(error.message)
+      });
+  }
