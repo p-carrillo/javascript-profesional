@@ -1,9 +1,11 @@
   import MediaPlayer from './mediaplayer.js'
-  import Autoplay from './plugins/autoplay.js'
+  import AutoPlay from './plugins/autoPlay.js'
+  import AutoPause from './plugins/autoPause.js'
 
   const video = document.querySelector('video');
   const player = new MediaPlayer({ el: video , plugins: [
-     new Autoplay(),
+     new AutoPlay(),
+     new AutoPause(),
   ]});
 
   const playButton = document.getElementById('play_toogle');
